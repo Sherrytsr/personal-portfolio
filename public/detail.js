@@ -1,0 +1,1 @@
+(()=>{const b=document.querySelector('.lang');if(!b)return;let l='zh';const r=()=>{document.documentElement.lang=l==='zh'?'zh-CN':'en';document.querySelectorAll('[data-lang]').forEach(e=>e.style.display=e.dataset.lang===l?'':'none');b.textContent=l==='zh'?'EN':'中'};b.addEventListener('click',()=>{l=l==='zh'?'en':'zh';r()});r()})();
