@@ -28,7 +28,6 @@
         <a href="#experience"><span data-lang="zh">实习</span><span data-lang="en">Experience</span></a>
         <a href="#project"><span data-lang="zh">项目</span><span data-lang="en">Project</span></a>
         <a href="#research"><span data-lang="zh">科研</span><span data-lang="en">Research</span></a>
-        <button class="lang-switch" type="button" aria-label="切换中英文">EN</button>
       </div>
     </div>
   </nav>
@@ -61,7 +60,7 @@
       <div class="section-head"><div><p class="section-kicker">02 · EXPERIENCE</p><h2><span data-lang="zh">实习经历</span><span data-lang="en">Experience</span></h2></div><p data-lang="zh">围绕 AI 教育产品，参与智能批改、模型评测、质量归因与生产方案选型。</p><p data-lang="en">AI education product experience spanning intelligent grading, model evaluation, quality attribution, and production model selection.</p></div>
       <div class="experience-list">
         <a class="experience-card is-link" href="sensetime-content.html">
-          <header><div><h3><span data-lang="zh">商汤科技</span><span data-lang="en">SenseTime</span></h3><p class="role"><span data-lang="zh">AI 产品实习生</span><span data-lang="en">AI Product Intern</span></p></div><time><span data-lang="zh">2026.05 — 至今</span><span data-lang="en">May 2026 — Present</span></time></header>
+          <header><div><h3><span data-lang="zh">商汤科技</span><span data-lang="en">SenseTime</span></h3><p class="role"><span data-lang="zh">AI 产品实习生</span><span data-lang="en">AI Product Intern</span></p></div><time><span data-lang="zh">2026.05 — 2026.08</span><span data-lang="en">May 2026 — Aug 2026</span></time></header>
           <p class="overview" data-lang="zh">参与判题宝 × 错题宝智能学习闭环建设，围绕教师端批阅机实现“扫描—切题—OCR—解题—判题—留痕”，并将批改结果同步至学生端形成错题学习闭环。</p>
           <p class="overview" data-lang="en">Contributed to an AI grading and learning loop covering scanning, question segmentation, OCR, solution generation, answer evaluation, and traceable feedback for teachers and students.</p>
           <ul class="resume-points" data-lang="zh"><li><b>策略设计：</b>推动知识点 RAG 接入讲题链路，并设计分层使用与低置信度降级策略。</li><li><b>模型选型：</b>基于200条真实溢出请求完成5个候选模型及 Prompt 组合评测，推动确定 OCR 峰值兜底模型。</li><li><b>质量闭环：</b>建立真实试卷分层抽样、端到端回放与首错归因机制，推动问题修复、复测及 Bad Case 回流。</li></ul>
@@ -105,24 +104,5 @@
     <footer><span>© 2026 唐少柔 · AI Product Portfolio</span><a class="back-top" href="#top"><span data-lang="zh">返回顶部 ↑</span><span data-lang="en">Back to top ↑</span></a></footer>
   </main>
 
-  <script>
-    (() => {
-      const button = document.querySelector('.lang-switch');
-      let language = 'zh';
-      function renderLanguage() {
-        document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
-        document.querySelectorAll('[data-lang]').forEach(element => {
-          element.style.display = element.dataset.lang === language ? '' : 'none';
-        });
-        button.textContent = language === 'zh' ? 'EN' : '中';
-        button.setAttribute('aria-label', language === 'zh' ? 'Switch to English' : '切换到中文');
-      }
-      button.addEventListener('click', () => {
-        language = language === 'zh' ? 'en' : 'zh';
-        renderLanguage();
-      });
-      renderLanguage();
-    })();
-  </script>
 </body>
 </html>
