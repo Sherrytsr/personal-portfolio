@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="吃什么 Smart Meal Agent：基于 AgentScope 与 Spring Boot 的智能饮食推荐项目详情。">
+  <title>吃什么｜Smart Meal Agent｜唐少柔</title>
+  <link rel="stylesheet" href="detail.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back" href="index.html#project"><span data-lang="zh">← 返回首页</span><span data-lang="en">← Back home</span></a>
+      <button class="lang" type="button" aria-label="Switch to English">EN</button>
+    </div>
+  </nav>
+
+  <main class="shell">
+    <header class="hero">
+      <p class="kicker">AI AGENT · 0→1 PERSONAL PROJECT · 2026.03 - 2026.06</p>
+      <h1><span data-lang="zh">吃什么｜Smart Meal Agent</span><span data-lang="en">Smart Meal Agent · Conversational Food Recommendation</span></h1>
+      <p class="lede" data-lang="zh">从 0 到 1 设计并实现的对话式饮食推荐 Agent，面向日常“吃什么”的决策场景，结合用户心情、就餐场景与健康诉求，完成从语义理解到餐食推荐、Trace 监控和离线评估的完整闭环。</p>
+      <p class="lede" data-lang="en">A conversational meal recommendation agent that turns vague dining needs into a structured, retrievable, rankable, and traceable recommendation workflow.</p>
+      <div class="meta">
+        <span>AgentScope</span><span>Spring Boot</span><span>MyBatis</span><span>MySQL</span><span>Trace</span>
+        <a href="https://github.com/Sherrytsr/smart-meal-agent" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span data-lang="zh">项目简介</span><span data-lang="en">Project intro</span></h2>
+        <p data-lang="zh">“吃什么”不是简单搜索，而是动态决策。</p>
+        <p data-lang="en">“What should I eat?” is not just search. It is a dynamic decision problem.</p>
+      </div>
+      <p class="body-copy" data-lang="zh">用户在真实就餐场景中的表达通常模糊、动态且不完整：可能只说“想吃清淡的”，也可能在系统推荐后继续说“换一批”“不要太油”。因此系统不仅要能理解用户目标，还要能维护多轮会话状态，在信息不足时主动澄清，在推荐失败或模型异常时稳定兜底。</p>
+      <p class="body-copy" data-lang="en">Users rarely provide complete requirements at once. They may say “something light,” “I'm tired tonight,” or “give me another batch.” The system identifies intent, extracts slots, clarifies missing information, and supports multi-turn adjustment.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span data-lang="zh">核心链路</span><span data-lang="en">Core workflow</span></h2>
+        <p data-lang="zh">从一句自然语言，到一组可解释推荐。</p>
+        <p data-lang="en">From natural language to explainable recommendations.</p>
+      </div>
+      <div class="flow" aria-label="吃什么推荐流程">
+        <div class="node"><b><span data-lang="zh">用户输入</span><span data-lang="en">Input</span></b><p><span data-lang="zh">如“今晚想吃清淡一点”</span><span data-lang="en">e.g. “something light tonight”</span></p></div>
+        <span class="arrow">→</span>
+        <div class="node"><b><span data-lang="zh">意图与槽位</span><span data-lang="en">Intent & slots</span></b><p><span data-lang="zh">识别餐次、口味、健康诉求</span><span data-lang="en">Extract meal time, taste, goals</span></p></div>
+        <span class="arrow">→</span>
+        <div class="node"><b><span data-lang="zh">检索排序</span><span data-lang="en">Retrieve & rank</span></b><p><span data-lang="zh">基于标签召回并打分</span><span data-lang="en">Recall and score tagged meals</span></p></div>
+        <span class="arrow">→</span>
+        <div class="node"><b><span data-lang="zh">推荐应答</span><span data-lang="en">Response</span></b><p><span data-lang="zh">生成理由与餐食卡片</span><span data-lang="en">Generate rationale and cards</span></p></div>
+      </div>
+      <p class="body-copy" data-lang="zh">主链路为：意图识别 → 槽位澄清 → 标签检索重排 → LLM 推荐理由生成。后端编排层负责会话状态、路由、降级和 Trace 记录，LLM 负责结构化语义理解与自然语言生成。</p>
+      <p class="body-copy" data-lang="en">The main pipeline is intent recognition and slot filling, multi-turn slot merge, clarification decision, meal retrieval, rule-based ranking, LLM response generation, and trace-based evaluation.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span data-lang="zh">核心设计</span><span data-lang="en">Core design</span></h2>
+        <p data-lang="zh">围绕 Agent 可用、可控、可观测、可评估展开。</p>
+        <p data-lang="en">Designed around usability, control, observability, and evaluation.</p>
+      </div>
+      <div class="grid core-design-grid">
+        <article class="card"><span class="number">01</span><h3><span data-lang="zh">全链路可观测能力设计</span><span data-lang="en">End-to-end observability</span></h3><p data-lang="zh"><b>问题：</b>LLM 输出不稳定，线上问题很难只靠日志判断是哪一步出错。</p><p data-lang="zh"><b>方案：</b>在请求入口、Agent 调用、槽位合并、澄清决策、检索排序、最终响应等节点记录 Trace，采集输入输出、模型名、Token、耗时与异常状态。</p><p data-lang="zh"><b>价值：</b>支持按会话还原链路和逐节点回放，能定位意图误判、槽位残留、检索过严、排序排除或模型异常。</p><p data-lang="en">Trace captures key inputs, outputs, model usage, latency, and errors so each request can be replayed and debugged.</p></article>
+        <article class="card"><span class="number">02</span><h3><span data-lang="zh">评估体系设计与评估闭环</span><span data-lang="en">Evaluation loop</span></h3><p data-lang="zh"><b>问题：</b>推荐质量不能只靠主观感觉，需要稳定的量化指标来指导优化。</p><p data-lang="zh"><b>方案：</b>批量解析 Trace，综合后端规则、LLM Judge 与用户反馈生成百分制评分报告，覆盖意图准确率、槽位准确率、Token 消耗、延迟、安全合规、幻觉控制等 10+ 指标。</p><p data-lang="zh"><b>价值：</b>低分样本可以回流到 prompt、规则和餐食库优化，形成 Trace 标注、批量评估、指标驱动迭代闭环。</p><p data-lang="en">Trace-based evaluation combines rules, LLM judge, and feedback into measurable quality reports.</p></article>
+        <article class="card"><span class="number">03</span><h3><span data-lang="zh">LLM 全链路 Fallback 设计</span><span data-lang="en">LLM fallback design</span></h3><p data-lang="zh"><b>问题：</b>LLM 可能超时、额度耗尽、返回空内容或格式错误，直接依赖模型会导致主流程中断。</p><p data-lang="zh"><b>方案：</b>意图识别失败时走关键词规则，澄清追问失败时用固定模板，推荐应答失败时用模板生成话术，但推荐卡片仍来自数据库检索排序。</p><p data-lang="zh"><b>价值：</b>用户感知是回复略模板化，而不是系统报错，保证全链路任一 LLM 异常时对话仍有结果。</p><p data-lang="en">Rules and templates take over when LLM calls fail, keeping the conversation available.</p></article>
+        <article class="card"><span class="number">04</span><h3><span data-lang="zh">完整产品设计</span><span data-lang="en">End-to-end product design</span></h3><p data-lang="zh"><b>问题：</b>单纯聊天推荐只能完成一次体验，无法支撑偏好沉淀、问题排查和持续优化。</p><p data-lang="zh"><b>方案：</b>用户侧设计公共/个人双数据源推荐、个人餐食库管理和反馈入口；研发侧设计 Trace 查询、样本标注与批量评估。</p><p data-lang="zh"><b>价值：</b>覆盖对话推荐、菜单维护、Trace 标注、批量评估四套能力，打通使用、反馈、标注、评估、迭代闭环。</p><p data-lang="en">The product connects user experience, feedback, trace review, labeling, and evaluation.</p></article>
+        <article class="card"><span class="number">05</span><h3><span data-lang="zh">后端多 Agent 协作架构</span><span data-lang="en">Backend multi-agent architecture</span></h3><p data-lang="zh"><b>问题：</b>如果把理解、追问、推荐、评估都塞进一个大模型调用，逻辑不可控，也不利于定位问题。</p><p data-lang="zh"><b>方案：</b>采用“编排中枢 + 专职 Worker”分层模式，将意图理解、槽位澄清、推荐生成、质量评估拆成独立 Agent 单元，由 Orchestrator 统一管控状态流转。</p><p data-lang="zh"><b>价值：</b>LLM 负责结构化推理和语言生成，后端负责确定性流程控制，系统更容易扩展、调试和降级。</p><p data-lang="en">Specialized agents are coordinated by a backend orchestrator for clearer control and debugging.</p></article>
+        <article class="card"><span class="number">06</span><h3><span data-lang="zh">意图识别与规则兜底</span><span data-lang="en">Intent recognition safeguards</span></h3><p data-lang="zh"><b>问题：</b>用户表达模糊，多轮上下文容易导致错误路由或槽位残留，影响推荐结果。</p><p data-lang="zh"><b>方案：</b>IntentAgent 识别 6 类意图与 7 维槽位，并叠加意图状态矫正、低置信度降级、关键词 Fallback；槽位抽取通过 diet_slot_option 词典强约束。</p><p data-lang="zh"><b>价值：</b>降低错误路由、低质量推荐和模型幻觉，让推荐条件更稳定地进入检索排序链路。</p><p data-lang="en">Intent recognition is protected by state revision, confidence checks, keyword fallback, and constrained slot labels.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span data-lang="zh">技术栈 / GitHub</span><span data-lang="en">Tech stack / GitHub</span></h2>
+        <p data-lang="zh">工程实现与代码仓库。</p>
+        <p data-lang="en">Implementation stack and source repository.</p>
+      </div>
+      <div class="grid">
+        <article class="card"><span class="label">STACK</span><h3><span data-lang="zh">技术栈</span><span data-lang="en">Stack</span></h3><p data-lang="zh">Java 21、Spring Boot、Maven、MyBatis、MySQL 8.0、AgentScope、DashScope / 通义千问、原生 HTML / CSS / JavaScript。</p><p data-lang="en">Java 21, Spring Boot, Maven, MyBatis, MySQL 8.0, AgentScope, DashScope, and native HTML/CSS/JavaScript.</p></article>
+        <article class="card"><span class="label">SOURCE</span><h3><span data-lang="zh">代码仓库</span><span data-lang="en">Repository</span></h3><p data-lang="zh">项目仓库已公开，包含后端 Agent 编排、Prompt、数据库脚本、静态前端页面、Trace 与评估相关代码。</p><p data-lang="en">The public repository includes backend orchestration, prompts, database scripts, frontend pages, trace, and evaluation code.</p><p><a href="https://github.com/Sherrytsr/smart-meal-agent" target="_blank" rel="noreferrer">github.com/Sherrytsr/smart-meal-agent ↗</a></p></article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© 2026 唐少柔 · AI Product Portfolio</span>
+      <a href="index.html#project"><span data-lang="zh">返回项目经历 →</span><span data-lang="en">Back to projects →</span></a>
+    </footer>
+  </main>
+  <script src="detail.js"></script>
+</body>
+</html>
