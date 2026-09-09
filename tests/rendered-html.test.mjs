@@ -25,3 +25,16 @@ test("provides a complete EZMark case-study page", async () => {
   assert.match(html, /src="detail\.js"/);
   assert.match(html, /href="index\.html#project"/);
 });
+
+test("generates a company version without the iFLYTEK internship", async () => {
+  const [defaultHtml, companyHtml] = await Promise.all([
+    readFile(new URL("index.html", publicRoot), "utf8"),
+    readFile(new URL("company-portfolio.html", publicRoot), "utf8"),
+  ]);
+
+  assert.match(defaultHtml, /科大讯飞/);
+  assert.match(defaultHtml, /data-portfolio-item="experience:iflytek"/);
+  assert.doesNotMatch(companyHtml, /科大讯飞|iFLYTEK|iflytek-content\.html/);
+  assert.match(companyHtml, /商汤科技/);
+  assert.match(companyHtml, /EZMark｜多模态 AI 智能阅卷/);
+});

@@ -1,0 +1,9 @@
+{
+  "variants": [
+    {
+      "id": "hide-iflytek",
+      "output": "public/company-portfolio.html",
+      "hiddenItems": ["experience:iflytek"]
+    }
+  ]
+}
