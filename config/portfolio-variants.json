@@ -3,7 +3,29 @@
     {
       "id": "hide-iflytek",
       "output": "public/company-portfolio.html",
-      "hiddenItems": ["experience:iflytek"]
+      "hiddenItems": ["experience:iflytek"],
+      "detailPages": [
+        {
+          "source": "public/sensetime-content.html",
+          "output": "public/company-sensetime-content.html"
+        },
+        {
+          "source": "public/diet-agent-content.html",
+          "output": "public/company-diet-agent-content.html"
+        },
+        {
+          "source": "public/ezmark-content.html",
+          "output": "public/company-ezmark-content.html"
+        },
+        {
+          "source": "public/advsort-content.html",
+          "output": "public/company-advsort-content.html"
+        },
+        {
+          "source": "public/medical-deblur-content.html",
+          "output": "public/company-medical-deblur-content.html"
+        }
+      ]
     }
   ]
 }

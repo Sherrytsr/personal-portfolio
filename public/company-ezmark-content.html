@@ -1,0 +1,106 @@
+<!doctype html>
+<!-- Generated variant detail: hide-iflytek. -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EZMark：覆盖试卷处理、考生匹配、AI 智能批改、人工复核与成绩分析的多模态阅卷平台。">
+  <title>EZMark｜多模态 AI 智能阅卷｜唐少柔</title>
+  <link rel="stylesheet" href="detail.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back" href="company-portfolio.html#project"><span data-lang="zh">← 返回首页</span><span data-lang="en">← Back home</span></a>
+    </div>
+  </nav>
+
+  <main class="shell">
+    <header class="hero">
+      <p class="kicker">MULTIMODAL AI · HUMAN-IN-THE-LOOP · 2025.01 - 2025.03</p>
+      <h1><span data-lang="zh">EZMark｜多模态 AI 智能阅卷</span><span data-lang="en">EZMark · Multimodal AI Grading</span></h1>
+      <p class="lede" data-lang="zh">面向纸质考试批改场景，从 0 到 1 参与设计覆盖“在线组卷—扫描上传—考生匹配—智能批改—人工复核—成绩分析”的全流程教师工作台。</p>
+      <p class="lede" data-lang="en">An end-to-end teacher workspace connecting exam creation, scanned-paper processing, student matching, AI-assisted grading, human review, and result analytics.</p>
+      <div class="meta">
+        <span>Next.js</span><span>Strapi</span><span>Multimodal AI</span><span>OCR</span><span>Zod</span>
+        <a href="https://github.com/Sherrytsr/EZMark" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span data-lang="zh">项目简介</span><span data-lang="en">Project intro</span></h2>
+        <p data-lang="zh">把纸质答卷转化为可复核、可追踪的数字化批改流程。</p>
+        <p data-lang="en">Turning paper exams into a reviewable and traceable digital grading workflow.</p>
+      </div>
+      <p class="body-copy" data-lang="zh">传统批改中，教师需要反复完成拆卷、核对学生、识别答案、逐题判分和成绩汇总。EZMark 将版式信息、多模态模型和确定性判分规则组合起来，让系统处理重复任务，同时为模糊答案和错误匹配保留人工介入入口。</p>
+      <p class="body-copy" data-lang="en">Teachers repeatedly separate papers, identify students, read answers, grade questions, and aggregate scores. EZMark combines layout metadata, multimodal models, and deterministic rules to automate repetitive work while preserving manual intervention for uncertainty.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span data-lang="zh">核心链路</span><span data-lang="en">Core workflow</span></h2>
+        <p data-lang="zh">从扫描答卷到可追溯成绩结果。</p>
+        <p data-lang="en">From scanned papers to traceable results.</p>
+      </div>
+      <div class="flow" aria-label="EZMark 智能阅卷流程">
+        <div class="node"><b><span data-lang="zh">扫描切题</span><span data-lang="en">Segment</span></b><p><span data-lang="zh">按组卷版式拆卷并裁切题目</span><span data-lang="en">Split papers and crop questions</span></p></div>
+        <span class="arrow">→</span>
+        <div class="node"><b><span data-lang="zh">考生匹配</span><span data-lang="en">Match</span></b><p><span data-lang="zh">识别姓名学号并关联班级</span><span data-lang="en">Read headers and link records</span></p></div>
+        <span class="arrow">→</span>
+        <div class="node"><b><span data-lang="zh">智能初判</span><span data-lang="en">Grade</span></b><p><span data-lang="zh">客观题判分与主观题建议</span><span data-lang="en">Objective scores and suggestions</span></p></div>
+        <span class="arrow">→</span>
+        <div class="node"><b><span data-lang="zh">教师复核</span><span data-lang="en">Review</span></b><p><span data-lang="zh">处理异常并确认最终得分</span><span data-lang="en">Resolve exceptions and confirm</span></p></div>
+        <span class="arrow">→</span>
+        <div class="node"><b><span data-lang="zh">成绩分析</span><span data-lang="en">Analyze</span></b><p><span data-lang="zh">生成班级和逐题统计</span><span data-lang="en">Class and question analytics</span></p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span data-lang="zh">核心设计</span><span data-lang="en">Core design</span></h2>
+        <p data-lang="zh">重点解决多模态识别的不确定性与最终评分责任问题。</p>
+        <p data-lang="en">Designed around multimodal uncertainty and final scoring accountability.</p>
+      </div>
+      <div class="grid core-design-grid">
+        <article class="card"><span class="number">01</span><h3><span data-lang="zh">多模态阅卷链路</span><span data-lang="en">Multimodal grading pipeline</span></h3><p data-lang="zh"><b>方案：</b>基于组卷时记录的版式坐标，将扫描 PDF 转为图片并裁切至题目粒度；分别识别考生页眉、手写客观题答案和主观题作答。</p><p data-lang="zh"><b>价值：</b>把一整份扫描件转化为可以按学生、按题目处理的结构化批改对象。</p><p data-lang="en">Layout coordinates turn scanned PDFs into question-level images for header recognition, objective-answer extraction, and subjective review.</p></article>
+        <article class="card"><span class="number">02</span><h3><span data-lang="zh">分层批改策略</span><span data-lang="en">Layered grading strategy</span></h3><p data-lang="zh"><b>客观题：</b>模型只负责识别手写选项，最终得分由标准答案和确定性规则计算。</p><p data-lang="zh"><b>主观题：</b>结合题干、参考答案、题目分值与答题图，结构化输出 OCR 结果、推理、批改建议和建议分数。</p><p data-lang="en">Models extract objective answers while deterministic rules calculate scores; subjective outputs include OCR, rationale, feedback, and a suggested score.</p></article>
+        <article class="card"><span class="number">03</span><h3><span data-lang="zh">异常兜底与人机协同</span><span data-lang="en">Fallback and human review</span></h3><p data-lang="zh"><b>问题：</b>涂改、模糊字迹和身份识别失败可能导致错误结果进入后续链路。</p><p data-lang="zh"><b>方案：</b>无法可靠判断时输出 Unknown，将异常客观题转人工复核；未匹配试卷通过可视化连线校正，主观题由教师确认最终得分。</p><p data-lang="en">Ambiguous answers return an explicit Unknown state, unmatched papers enter visual correction, and teachers retain final authority over subjective scores.</p></article>
+        <article class="card"><span class="number">04</span><h3><span data-lang="zh">结果分析闭环</span><span data-lang="en">Analytics loop</span></h3><p data-lang="zh"><b>方案：</b>汇总学生总分与逐题得分，输出平均分、最高/最低分、中位数、标准差、分数分布及客观题正确率。</p><p data-lang="zh"><b>价值：</b>批改结果直接沉淀为班级学情数据，减少人工录分与重复统计。</p><p data-lang="en">Final scores are transformed into class- and question-level statistics, reducing manual entry and aggregation work.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span data-lang="zh">效果验证</span><span data-lang="en">Validation</span></h2>
+        <p data-lang="zh">以离线测试验证自动处理能力与实际效率收益。</p>
+        <p data-lang="en">Offline testing measured automation coverage and workflow efficiency.</p>
+      </div>
+      <div class="grid">
+        <article class="card"><span class="number">20</span><h3><span data-lang="zh">份模拟答卷</span><span data-lang="en">Simulated papers</span></h3><p><span data-lang="zh">覆盖 120 道客观题</span><span data-lang="en">Covering 120 objective questions</span></p></article>
+        <article class="card"><span class="number">80%</span><h3><span data-lang="zh">学生—试卷自动匹配率</span><span data-lang="en">Automatic paper matching</span></h3><p><span data-lang="zh">其余结果进入人工校正</span><span data-lang="en">Remaining cases routed to review</span></p></article>
+        <article class="card"><span class="number">85%</span><h3><span data-lang="zh">客观题初判准确率</span><span data-lang="en">Objective first-pass accuracy</span></h3><p><span data-lang="zh">不确定答案通过 Unknown 拦截</span><span data-lang="en">Uncertain answers explicitly flagged</span></p></article>
+        <article class="card"><span class="number">75%</span><h3><span data-lang="zh">批改耗时降低</span><span data-lang="en">Time reduction</span></h3><p><span data-lang="zh">20 人班级由约 60 分钟缩短至 15 分钟</span><span data-lang="en">From about 60 to 15 minutes for a 20-student class</span></p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span data-lang="zh">技术栈 / GitHub</span><span data-lang="en">Tech stack / GitHub</span></h2>
+        <p data-lang="zh">工程实现与脱敏后的公开代码仓库。</p>
+        <p data-lang="en">Implementation stack and privacy-safe source repository.</p>
+      </div>
+      <div class="grid">
+        <article class="card"><span class="label">STACK</span><h3><span data-lang="zh">技术栈</span><span data-lang="en">Stack</span></h3><p data-lang="zh">Next.js、React、TypeScript、Strapi、SQLite、OpenAI-compatible SDK、Zod、Puppeteer、pdf-lib 与 Sharp。</p><p data-lang="en">Next.js, React, TypeScript, Strapi, SQLite, OpenAI-compatible SDK, Zod, Puppeteer, pdf-lib, and Sharp.</p></article>
+        <article class="card"><span class="label">SOURCE</span><h3><span data-lang="zh">代码仓库</span><span data-lang="en">Repository</span></h3><p><a href="https://github.com/Sherrytsr/EZMark" target="_blank" rel="noreferrer">github.com/Sherrytsr/EZMark ↗</a></p></article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© 2026 唐少柔 · AI Product Portfolio</span>
+      <a href="company-portfolio.html#project"><span data-lang="zh">返回项目经历 →</span><span data-lang="en">Back to projects →</span></a>
+    </footer>
+  </main>
+  <script src="detail.js"></script>
+</body>
+</html>

@@ -17,6 +17,15 @@ if (!Array.isArray(variants) || variants.length === 0) {
 }
 
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const publicRoot = path.join(projectRoot, "public");
+
+function resolvePublicPath(relativePath) {
+  const resolvedPath = path.resolve(projectRoot, relativePath);
+  if (!resolvedPath.startsWith(`${publicRoot}${path.sep}`)) {
+    throw new Error(`Variant path must stay inside public/: ${relativePath}`);
+  }
+  return resolvedPath;
+}
 
 for (const variant of variants) {
   let html = sourceHtml;
@@ -34,13 +43,26 @@ for (const variant of variants) {
     html = html.replace(blockPattern, "");
   }
 
+  const variantHomeFile = path.basename(variant.output);
+  for (const detailPage of variant.detailPages ?? []) {
+    const sourceFile = path.basename(detailPage.source);
+    const outputFile = path.basename(detailPage.output);
+    html = html.replace(
+      new RegExp(`href=(["'])${escapeRegExp(sourceFile)}\\1`, "g"),
+      `href="${outputFile}"`,
+    );
+
+    const detailSource = await readFile(resolvePublicPath(detailPage.source), "utf8");
+    const detailHtml = detailSource
+      .replace(/href=(["'])index\.html#/g, `href=$1${variantHomeFile}#`)
+      .replace(/[ \t]+$/gm, "")
+      .replace("<!doctype html>", `<!doctype html>\n<!-- Generated variant detail: ${variant.id}. -->`);
+    await writeFile(resolvePublicPath(detailPage.output), detailHtml, "utf8");
+  }
+
   html = html
     .replace(/\sdata-portfolio-item=["'][^"']+["']/g, "")
     .replace("<!doctype html>", `<!doctype html>\n<!-- Generated variant: ${variant.id}. Edit public/index.html and config/portfolio-variants.json. -->`);
 
-  const outputPath = path.resolve(projectRoot, variant.output);
-  if (!outputPath.startsWith(`${path.join(projectRoot, "public")}${path.sep}`)) {
-    throw new Error(`Variant output must stay inside public/: ${variant.output}`);
-  }
-  await writeFile(outputPath, html, "utf8");
+  await writeFile(resolvePublicPath(variant.output), html, "utf8");
 }

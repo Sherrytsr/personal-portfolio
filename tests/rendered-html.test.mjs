@@ -37,4 +37,25 @@ test("generates a company version without the iFLYTEK internship", async () => {
   assert.doesNotMatch(companyHtml, /科大讯飞|iFLYTEK|iflytek-content\.html/);
   assert.match(companyHtml, /商汤科技/);
   assert.match(companyHtml, /EZMark｜多模态 AI 智能阅卷/);
+  assert.match(companyHtml, /href="company-sensetime-content\.html"/);
+  assert.match(companyHtml, /href="company-diet-agent-content\.html"/);
+  assert.match(companyHtml, /href="company-ezmark-content\.html"/);
+  assert.match(companyHtml, /href="company-advsort-content\.html"/);
+  assert.match(companyHtml, /href="company-medical-deblur-content\.html"/);
+});
+
+test("keeps every company detail page inside the company version", async () => {
+  const detailPages = [
+    ["company-sensetime-content.html", "experience"],
+    ["company-diet-agent-content.html", "project"],
+    ["company-ezmark-content.html", "project"],
+    ["company-advsort-content.html", "research"],
+    ["company-medical-deblur-content.html", "research"],
+  ];
+
+  for (const [file, section] of detailPages) {
+    const html = await readFile(new URL(file, publicRoot), "utf8");
+    assert.match(html, new RegExp(`href="company-portfolio\\.html#${section}"`));
+    assert.doesNotMatch(html, /href="index\.html#/);
+  }
 });
