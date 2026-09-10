@@ -19,8 +19,16 @@ if (!Array.isArray(variants) || variants.length === 0) {
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const publicRoot = path.join(projectRoot, "public");
 
-function resolvePublicPath(relativePath) {
+function resolveProjectPath(relativePath) {
   const resolvedPath = path.resolve(projectRoot, relativePath);
+  if (resolvedPath !== projectRoot && !resolvedPath.startsWith(`${projectRoot}${path.sep}`)) {
+    throw new Error(`Variant path must stay inside the project: ${relativePath}`);
+  }
+  return resolvedPath;
+}
+
+function resolvePublicPath(relativePath) {
+  const resolvedPath = resolveProjectPath(relativePath);
   if (!resolvedPath.startsWith(`${publicRoot}${path.sep}`)) {
     throw new Error(`Variant path must stay inside public/: ${relativePath}`);
   }
@@ -29,6 +37,18 @@ function resolvePublicPath(relativePath) {
 
 for (const variant of variants) {
   let html = sourceHtml;
+
+  for (const override of variant.itemOverrides ?? []) {
+    const escapedItem = escapeRegExp(override.item);
+    const blockPattern = new RegExp(
+      `<a(?=[^>]*\\bdata-portfolio-item=["']${escapedItem}["'])[^>]*>[\\s\\S]*?<\\/a>`,
+    );
+    if (!blockPattern.test(html)) {
+      throw new Error(`Variant ${variant.id} references missing override item: ${override.item}`);
+    }
+    const replacement = (await readFile(resolveProjectPath(override.source), "utf8")).trim();
+    html = html.replace(blockPattern, replacement);
+  }
 
   for (const item of variant.hiddenItems ?? []) {
     const escapedItem = escapeRegExp(item);
@@ -45,14 +65,14 @@ for (const variant of variants) {
 
   const variantHomeFile = path.basename(variant.output);
   for (const detailPage of variant.detailPages ?? []) {
-    const sourceFile = path.basename(detailPage.source);
+    const sourceFile = detailPage.link ?? path.basename(detailPage.source);
     const outputFile = path.basename(detailPage.output);
     html = html.replace(
       new RegExp(`href=(["'])${escapeRegExp(sourceFile)}\\1`, "g"),
       `href="${outputFile}"`,
     );
 
-    const detailSource = await readFile(resolvePublicPath(detailPage.source), "utf8");
+    const detailSource = await readFile(resolveProjectPath(detailPage.source), "utf8");
     const detailHtml = detailSource
       .replace(/href=(["'])index\.html#/g, `href=$1${variantHomeFile}#`)
       .replace(/[ \t]+$/gm, "")

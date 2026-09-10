@@ -1,13 +1,24 @@
 {
   "variants": [
     {
-      "id": "hide-iflytek",
+      "id": "company-tailored",
       "output": "public/company-portfolio.html",
-      "hiddenItems": ["experience:iflytek"],
+      "hiddenItems": [],
+      "itemOverrides": [
+        {
+          "item": "experience:iflytek",
+          "source": "config/portfolio-fragments/company-iflytek-card.html"
+        }
+      ],
       "detailPages": [
         {
           "source": "public/sensetime-content.html",
           "output": "public/company-sensetime-content.html"
+        },
+        {
+          "link": "iflytek-content.html",
+          "source": "config/portfolio-pages/company-iflytek-content.html",
+          "output": "public/company-iflytek-content.html"
         },
         {
           "source": "public/diet-agent-content.html",
